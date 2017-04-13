@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>alert封装</title>
+	<link rel="stylesheet" type="text/css" href="css/alert.css">
+</head>
+<body>
+	<button id="btn">alert</button>
+</body>
+<script type="text/javascript" src="js/alert.js"></script>
+<script type="text/javascript">
+var btn = document.getElementById('btn');
+btn.onclick = function(){
+	Alerts("确定拨打电话吗？",{
+        title:"土豪求申请",
+        yes : function(){
+            cancelBox()
+
+            succeedBox("三秒钟后，将要跳转页面，进行支付操作",{
+                title:"跳转支付宝"
+            },function(data){
+                if(data=="true"){
+                    setTimeout(function(){
+                        cancelBox()
+                    
+                     //location.href="controller/tijiao/tijiao.html"
+                    },2000)
+
+                }
+            })
+        },
+        no : function(){
+            cancelBox()
+
+            cancelAlert("您确定取消支付吗",{
+                title:"没钱的渣渣",
+                btns:["确定"],
+                yes : function(){
+                    cancelBox()
+                }
+            })
+        }
+    })
+}
+</script>
+</html>
