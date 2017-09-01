@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>alert封装</title>
+	<link rel="stylesheet" type="text/css" href="css/index.min.css">
+</head>
+<body>
+	<button id="btn">alert</button>
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+var btn = document.getElementById('btn');
+btn.onclick = function(){
+	$('#btn').Alerts({
+    title : "土豪求申请",
+    cont  : "确定拨打电话吗？",
+    yes   : function(){
+      $('#btn').cancelBox();
+      $('#btn').succeedBox({
+          title:"跳转支付宝",
+          cont :"三秒钟后，将要跳转页面，进行支付操作",
+        },
+        function(data){
+          if(data=="true"){
+            setTimeout(function(){
+              $('#btn').cancelBox();
+            },2000)
+          }
+        }
+      )
+    },
+    no : function(){
+      //$('#btn').cancelBox()
+      $('#btn').cancelBox()
+      $('#btn').cancelAlert({
+        title:"没钱的渣渣",
+        cont :"您确定取消支付吗",
+        btns:["确定"],
+        yes : function(){
+          $('#btn').cancelBox()
+        }
+      })
+    }
+  })
+}
+</script>
+</html>
